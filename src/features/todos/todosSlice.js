@@ -17,24 +17,19 @@ const initialState = todosAdapter.getInitialState({
     status: 'idle'
 })
 
-// thunk without redux-toolkit
-// export const fetchTodos = () => async dispatch => {
-//     dispatch(todosLoading())
-//     const response = await client.get('/fakeApi/todos')
-//     dispatch(todosLoaded(response.todos))
-// }
-
-// export const saveNewTodo = text => async (dispatch, getState) => {
-//     const initialTodo = {text}
-//     const response = await client.post('/fakeApi/todos', {todo: initialTodo})
-//     dispatch(todoAdded(response.todo))
-// }
-
 //thunk using redux toolkit
-export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-    const response = await client.get('/fakeApi/todos')
-    return response.todos
-})
+// export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
+//     const response = await client.get('/fakeApi/todos')
+//     return response.todos
+// })
+
+export const fetchTodos = createAsyncThunk(
+    'todos/fetchTodos',
+    async (dispatch, getState) => {
+        return await fetch('https://todoappreduxtoolkit-default-rtdb.firebaseio.com/todos').then(
+            response => response.json()
+        )
+    })
 
 export const saveNewTodo = createAsyncThunk('todos/saveNewTodo', async text => {
     const initialTodo = {text}
@@ -97,6 +92,9 @@ const todosSlice = createSlice({
                 //     state.entities[todo.id] = todo
                 // })
                 todosAdapter.setAll(state, action.payload)
+            })
+            .addCase(fetchTodos.rejected, (state, action) => {
+                console.log('error');
             })
             // .addCase(saveNewTodo.fulfilled, (state, action) => {
             //     const todo = action.payload
