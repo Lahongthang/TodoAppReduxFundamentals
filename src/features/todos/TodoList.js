@@ -3,7 +3,7 @@ import { selectFilteredTodoIds } from './todosSlice';
 import TodoListItem from "./TodoListItem";
 
 const TodoList = () => {
-    const todoIds = useSelector(selectFilteredTodoIds)
+    const todoIds = useSelector(selectFilteredTodoIds, shallowEqual)
     const loadingStatus = useSelector(state => state.todos.status)
 
     if (loadingStatus === 'loading') {
