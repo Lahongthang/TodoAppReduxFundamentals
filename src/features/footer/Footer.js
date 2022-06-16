@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 
 import { availableColors, capitalize } from '../filters/colors'
 import {
@@ -90,7 +90,7 @@ const Footer = () => {
       (todo) => !todo.completed
     )
     return uncompletedTodos.length
-  })
+  }, shallowEqual)
 
   const { status, colors } = useSelector((state) => state.filters)
 
