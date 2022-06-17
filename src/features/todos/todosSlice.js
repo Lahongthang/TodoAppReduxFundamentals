@@ -1,15 +1,10 @@
+import axios from 'axios'
 import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit'
 import {createSelector} from '@reduxjs/toolkit'
 import { client } from "../../api/client";
 import { StatusFilters } from "../filters/filtersSlice";
 
 const todosAdapter = createEntityAdapter()
-
-//init state without createEntityAdapter
-// const initialState = {
-//     status: 'idle',
-//     entities: {}
-// }
 
 //init state with createEntityAdapter
 //{ids: [], entities: {}, status: ''}
@@ -30,7 +25,7 @@ const initialState = todosAdapter.getInitialState({
 //     dispatch(todoAdded(response.todo))
 // }
 
-//thunk using redux toolkit
+// thunk using redux toolkit
 export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
     const response = await client.get('/fakeApi/todos')
     return response.todos
