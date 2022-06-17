@@ -24,3 +24,19 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 )
+
+
+// import axios from 'axios'
+
+// const fetchData = async () => {
+//   try {
+//     const response = await axios.get('https://todoappreduxtoolkit-default-rtdb.firebaseio.com/todos/entities.json')
+//     const newObj = {}
+//     newObj["todos"] = response.data
+//     console.log('data: ', newObj);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
+// fetchData()

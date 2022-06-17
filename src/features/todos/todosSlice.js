@@ -1,15 +1,10 @@
+import axios from 'axios'
 import {createSlice, createAsyncThunk, createEntityAdapter} from '@reduxjs/toolkit'
 import {createSelector} from '@reduxjs/toolkit'
 import { client } from "../../api/client";
 import { StatusFilters } from "../filters/filtersSlice";
 
 const todosAdapter = createEntityAdapter()
-
-//init state without createEntityAdapter
-// const initialState = {
-//     status: 'idle',
-//     entities: {}
-// }
 
 //init state with createEntityAdapter
 //{ids: [], entities: {}, status: ''}
@@ -18,18 +13,19 @@ const initialState = todosAdapter.getInitialState({
 })
 
 //thunk using redux toolkit
-// export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
-//     const response = await client.get('/fakeApi/todos')
-//     return response.todos
-// })
+export const fetchTodos = createAsyncThunk('todos/fetchTodos', async () => {
+    const response = await client.get('/fakeApi/todos')
+    return response.todos
+})
 
-export const fetchTodos = createAsyncThunk(
-    'todos/fetchTodos',
-    async (dispatch, getState) => {
-        return await fetch('https://todoappreduxtoolkit-default-rtdb.firebaseio.com/todos').then(
-            response => response.json()
-        )
-    })
+// export const fetchTodos = createAsyncThunk(
+//     'todos/fetchTodos',
+//     async (dispatch, getState) => {
+//         return await fetch('https://todoappreduxtoolkit-default-rtdb.firebaseio.com/todos').then(
+//             response => response.json()
+//         )
+//     }
+// )
 
 export const saveNewTodo = createAsyncThunk('todos/saveNewTodo', async text => {
     const initialTodo = {text}

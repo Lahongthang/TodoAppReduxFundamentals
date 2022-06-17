@@ -3,6 +3,9 @@ import { selectFilteredTodoIds } from './todosSlice';
 import TodoListItem from "./TodoListItem";
 
 const TodoList = () => {
+    // const st = useSelector(state => state)
+    // console.log('todos: ', st);
+
     const todoIds = useSelector(selectFilteredTodoIds, shallowEqual)
     const loadingStatus = useSelector(state => state.todos.status)
 
